@@ -1,37 +1,29 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Member {
+public class Team {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "MEMBER_ID")
+  @Column(name = "TEAM_ID")
   private Long id;
-  @Column(name = "USER_NAME")
   private String name;
 
-  @ManyToOne
-  @JoinColumn(name = "TEAM_ID")
-  private Team team;
+  // 읽기만 가능.
+  @OneToMany(mappedBy = "team")
+  private List<Member> members = new ArrayList<>();
 
-  public Member () {
+  public Team() {
 
   }
 
-  public Member(Long id, String name) {
+  public Team(Long id, String name) {
     this.id = id;
     this.name = name;
-  }
-
-  public Team getTeam() {
-    return team;
-  }
-
-  public void setTeam(Team team) {
-    this.team = team;
-
   }
 
   public Long getId() {
